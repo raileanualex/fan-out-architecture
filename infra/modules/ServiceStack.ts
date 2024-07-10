@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as constructs from 'constructs';
 import { FunctionsStack } from './FunctionsStack';
 import { RestAPIStack } from './RestAPIStack';
+import { CloudfrontStack } from './CloudfrontStack';
 
 export type ServiceStackProps = cdk.StackProps & {
     label: {
@@ -16,9 +17,14 @@ export class ServiceStack extends cdk.Stack {
 
         const functionsStack = new FunctionsStack(this, id, props);
         
-        new RestAPIStack(this, id, {
+        const restApiStack = new RestAPIStack(this, id, {
             ...props,
             helloWorldLambda: functionsStack.helloWorldLambda
+        });
+        
+        new CloudfrontStack(this, id, {
+            ...props,
+            api:restApiStack .api
         });
     }
 }
