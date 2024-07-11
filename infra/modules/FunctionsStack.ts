@@ -25,7 +25,7 @@ export class FunctionsStack extends cdk.Stack {
 
         // Create Order Lambda function
         this.orderLambda = new nodeLambda.NodejsFunction(this, `${id}-order-lambda`, {
-            entry: './service/hello-world/Handler.ts',
+            entry: './service/order/Handler.ts',
             runtime: lambda.Runtime.NODEJS_20_X,
             environment: {
                 ORDER_TOPIC_ARN: props.topic.topicArn,
