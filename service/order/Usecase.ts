@@ -7,6 +7,8 @@ export class Order {
     ) {}
 
     public async run(payload: APIGatewayProxyEvent, context: Context): Promise<unknown> {
+        console.log(payload);
+        console.log(context);
         return this.orderRepository.sayHelloWorld();
     }
 }

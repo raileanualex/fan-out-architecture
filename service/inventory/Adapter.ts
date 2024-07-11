@@ -1,4 +1,3 @@
-import { APIGatewayResponse, ok } from "@enter-at/lambda-handlers";
 import { SQSEvent, Context } from "aws-lambda";
 import { Inventory } from "./Usecase";
 
