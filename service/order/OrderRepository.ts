@@ -12,8 +12,10 @@ export class OrderRepository implements Repository {
     }
 
     async sayHelloWorld(): Promise<unknown> {
-        const text = "Hello World";
-        const orderDetails = JSON.parse(text);
+        const text = "Hello World"
+        const orderDetails = {
+            test: text,
+        }
 
         const params = {
             Message: JSON.stringify(orderDetails),
