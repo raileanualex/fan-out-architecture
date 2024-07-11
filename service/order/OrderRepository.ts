@@ -29,6 +29,10 @@ export class OrderRepository implements Repository {
             if (!topicArn) {
                 throw new Error("ORDER_TOPIC_ARN environment variable is not set");
             }
+
+            this.snsClient = new sns.SNSClient({ region: 'eu-central-1' });
+            console.log("LOG=after create sns client", JSON.stringify(this.snsClient));
+
             const response = await this.snsClient.send(new sns.PublishCommand(params));
             console.log("LOG=after publish", JSON.stringify(response));
 
