@@ -24,6 +24,11 @@ export class OrderRepository implements Repository {
             };
 
             console.log("LOG=before publish", params);
+
+            const topicArn = process.env.ORDER_TOPIC_ARN;
+            if (!topicArn) {
+                throw new Error("ORDER_TOPIC_ARN environment variable is not set");
+            }
             const response = await this.snsClient.send(new sns.PublishCommand(params));
             console.log("LOG=after publish", JSON.stringify(response));
 
