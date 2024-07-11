@@ -8,12 +8,6 @@ export class OrderAdapter {
     }
 
     async handleEvent(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayResponse> {
-        try {
-            return ok(await this.usecase.run(event, context));
-        } catch (error) {
-            console.error(error);
-            console.log('ERROR=', error);
-            return internalServerError()
-        }
+        return ok(await this.usecase.run(event, context));
     }
 }
