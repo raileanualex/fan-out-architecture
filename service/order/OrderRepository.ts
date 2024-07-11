@@ -12,16 +12,21 @@ export class OrderRepository implements Repository {
     }
 
     async sayHelloWorld(): Promise<unknown> {
-        const text = "Hello World"
-        const orderDetails = {
-            test: text,
+        try {
+            const text = "Hello World"
+            const orderDetails = {
+                test: text,
+            }
+
+            const params = {
+                Message: JSON.stringify(orderDetails),
+                TopicArn: process.env.ORDER_TOPIC_ARN,
+            };
+
+            return await this.snsClient.send(new sns.PublishCommand(params));
+        } catch(error) {
+            console.error(error);
+            throw error;
         }
-
-        const params = {
-            Message: JSON.stringify(orderDetails),
-            TopicArn: process.env.ORDER_TOPIC_ARN,
-        };
-
-        return this.snsClient.send(new sns.PublishCommand(params));
     }
 }
