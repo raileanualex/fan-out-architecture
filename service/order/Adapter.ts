@@ -1,5 +1,5 @@
 import { APIGatewayResponse, ok } from "@enter-at/lambda-handlers";
-import { SQSEvent, Context } from "aws-lambda";
+import { APIGatewayProxyEvent, Context } from "aws-lambda";
 import { Order } from "./Usecase";
 
 export class OrderAdapter {
@@ -7,7 +7,7 @@ export class OrderAdapter {
         this.usecase = usecase;
     }
 
-    async handleEvent(event: SQSEvent, context: Context): Promise<APIGatewayResponse> {
+    async handleEvent(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayResponse> {
         return ok(await this.usecase.run(event, context));
     }
 }
