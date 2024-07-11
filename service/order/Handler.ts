@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResponse, Context } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import { Order } from "./Usecase";
 import { OrderAdapter } from "./Adapter";
 import { OrderRepository } from "./OrderRepository";
@@ -13,7 +13,7 @@ async function initialize(): Promise<OrderAdapter> {
 
 let adapter: OrderAdapter;
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResponse> {
+export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
     if (!adapter) {
         adapter = await initialize();
     }
