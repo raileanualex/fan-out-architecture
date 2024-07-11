@@ -4,6 +4,7 @@
     "author": "railalex",
     "dependencies": {
         "@aws-cdk/aws-sns-subscriptions": "^1.204.0",
+        "@aws-sdk/client-sns": "^3.614.0",
         "@enter-at/lambda-handlers": "^4.0.0",
         "aws-cdk": "^2.145.0",
         "aws-cdk-lib": "^2.145.0",

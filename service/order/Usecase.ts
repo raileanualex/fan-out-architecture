@@ -1,14 +1,14 @@
 import { Context, APIGatewayProxyEvent } from "aws-lambda";
-import { HelloWorldRepository } from "./HelloWorldRepository";
+import { OrderRepository } from "./OrderRepository";
 
-export class HelloWorld {
+export class Order {
     constructor(
-        private helloWorldRepository: HelloWorldRepository,
+        private orderRepository: OrderRepository,
     ) {}
 
     public async run(payload: APIGatewayProxyEvent, context: Context): Promise<unknown> {
         console.log(payload);
         console.log(context);
-        return this.helloWorldRepository.sayHelloWorld();
+        return this.orderRepository.sayHelloWorld();
     }
 }
