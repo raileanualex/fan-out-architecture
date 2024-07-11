@@ -29,11 +29,7 @@ export class OrderRepository implements Repository {
 
             const response = await snsClient.send(new sns.PublishCommand(params));
             console.log("LOG=after publish", JSON.stringify(response));
-
-            return {
-                statusCode: "Successful",
-
-            }
+            return "nice";
         } catch(error) {
             console.log("ERROR=", error);
             throw internalServerError();
