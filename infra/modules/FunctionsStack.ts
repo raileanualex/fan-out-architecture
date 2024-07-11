@@ -35,7 +35,7 @@ export class FunctionsStack extends cdk.Stack {
               },
             logRetention,
             memorySize: 1024, // Adjust memory size (in MB)
-            timeout: cdk.Duration.seconds(30), // Adjust timeout (in seconds)
+            timeout: cdk.Duration.minutes(15), // Adjust timeout (in seconds)
         });
         props.topic.grantPublish(this.orderLambda);
 
