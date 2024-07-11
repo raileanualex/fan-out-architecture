@@ -1,4 +1,4 @@
-import { APIGatewayResponse, internalServerError, ok } from "@enter-at/lambda-handlers";
+import { APIGatewayResponse, ok } from "@enter-at/lambda-handlers";
 import { APIGatewayProxyEvent, Context } from "aws-lambda";
 import { Order } from "./Usecase";
 
