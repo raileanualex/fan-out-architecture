@@ -24,7 +24,13 @@ export class OrderRepository implements Repository {
             };
 
             console.log("LOG=before publish", params);
-            return await this.snsClient.send(new sns.PublishCommand(params));
+            const response = await this.snsClient.send(new sns.PublishCommand(params));
+            console.log("LOG=after publish", JSON.stringify(response));
+
+            return {
+                statusCode: "Successful",
+
+            }
         } catch(error) {
             console.error(error);
             throw error;
