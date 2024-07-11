@@ -23,6 +23,7 @@ export class OrderRepository implements Repository {
                 TopicArn: process.env.ORDER_TOPIC_ARN,
             };
 
+            console.log("LOG=before publish", params);
             return await this.snsClient.send(new sns.PublishCommand(params));
         } catch(error) {
             console.error(error);
