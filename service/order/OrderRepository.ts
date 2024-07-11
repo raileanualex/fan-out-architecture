@@ -1,4 +1,5 @@
 import * as sns from "@aws-sdk/client-sns";
+import { internalServerError } from "@enter-at/lambda-handlers";
 
 export interface Repository {
     sayHelloWorld(): Promise<unknown>;
@@ -41,8 +42,8 @@ export class OrderRepository implements Repository {
 
             }
         } catch(error) {
-            console.error(error);
-            throw error;
+            console.log("ERROR=", error);
+            throw internalServerError();
         }
     }
 }
