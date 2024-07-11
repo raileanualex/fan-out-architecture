@@ -19,7 +19,7 @@ export class FanoutStack extends cdk.Stack {
 
     constructor(scope: constructs.Construct, id: string, props: ServiceStackProps) {
         
-        super(scope, id, props);
+        super(scope, `${id}-fanout-stack`, props);
 
         // Create an SNS topic
         this.orderTopic = new sns.Topic(this, `${id}-OrderTopic`, {
