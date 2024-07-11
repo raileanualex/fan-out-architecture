@@ -18,17 +18,17 @@ export class RestAPIStack extends cdk.Stack {
         super(scope, `${props.label.id}-rest-api-stack`, props);
 
         // Create API Gateway
-        this.api = new apigateway.LambdaRestApi(this, 'APIGateway', {
+        this.api = new apigateway.LambdaRestApi(this, `${props.label.id}-api-gw`, {
             handler: props.orderLambda,
             proxy: false,
-            restApiName: 'HelloWorldService',
-            description: 'This service serves a hello world API.',
+            restApiName: 'OrderService',
+            description: 'This service serves an order API.',
             apiKeySourceType: apigateway.ApiKeySourceType.HEADER,
         });
 
         // Define API Gateway resources and methods
-        const textToSpeechResource = this.api.root.addResource('hello-world');
-        textToSpeechResource.addMethod('POST', new apigateway.LambdaIntegration(props.orderLambda), {
+        const orderResource = this.api.root.addResource('order');
+        orderResource.addMethod('POST', new apigateway.LambdaIntegration(props.orderLambda), {
             apiKeyRequired: true
         });
         
