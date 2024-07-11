@@ -27,7 +27,7 @@ export class CloudfrontStack extends cdk.Stack {
 
         const certificate = certificatemanager.Certificate.fromCertificateArn(this, "certificate-arn", "arn:aws:acm:us-east-1:339712871873:certificate/99c73a0e-43a0-4416-9d96-db36e66e29db");
 
-        const originRequestPolicy = new cloudfront.OriginRequestPolicy(this, `${id}-OriginRequestPolicy`, {
+        const originRequestPolicy = new cloudfront.OriginRequestPolicy(this, `${id}-orp`, {
             headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList("x-api-key"),
             queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
         });
