@@ -8,7 +8,7 @@ export type ServiceStackProps = cdk.StackProps & {
         id: string;
     },
     domainName: string;
-    helloWorldLambda: lambda.Function;
+    orderLambda: lambda.Function;
 };
 
 export class RestAPIStack extends cdk.Stack {
@@ -19,7 +19,7 @@ export class RestAPIStack extends cdk.Stack {
 
         // Create API Gateway
         this.api = new apigateway.LambdaRestApi(this, 'APIGateway', {
-            handler: props.helloWorldLambda,
+            handler: props.orderLambda,
             proxy: false,
             restApiName: 'HelloWorldService',
             description: 'This service serves a hello world API.',
@@ -28,7 +28,7 @@ export class RestAPIStack extends cdk.Stack {
 
         // Define API Gateway resources and methods
         const textToSpeechResource = this.api.root.addResource('hello-world');
-        textToSpeechResource.addMethod('POST', new apigateway.LambdaIntegration(props.helloWorldLambda), {
+        textToSpeechResource.addMethod('POST', new apigateway.LambdaIntegration(props.orderLambda), {
             apiKeyRequired: true
         });
         
