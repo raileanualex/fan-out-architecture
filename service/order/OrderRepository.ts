@@ -1,4 +1,3 @@
-import * as sns from "@aws-sdk/client-sns";
 import { internalServerError } from "@enter-at/lambda-handlers";
 
 export interface Repository {
@@ -6,12 +5,6 @@ export interface Repository {
 }
 
 export class OrderRepository implements Repository {
-    snsClient: sns.SNSClient;
-
-    constructor() {
-        this.snsClient = new sns.SNSClient({ region: 'eu-central-1' });
-    }
-
     async sayHelloWorld(): Promise<unknown> {
         try {
             const text = "Hello World"
@@ -31,11 +24,11 @@ export class OrderRepository implements Repository {
                 throw new Error("ORDER_TOPIC_ARN environment variable is not set");
             }
 
-            this.snsClient = new sns.SNSClient({ region: 'eu-central-1' });
-            console.log("LOG=after create sns client", JSON.stringify(this.snsClient));
+            // const snsClient = new sns.SNSClient({ region: 'eu-central-1' });
+            // console.log("LOG=after create sns client", JSON.stringify(snsClient));
 
-            const response = await this.snsClient.send(new sns.PublishCommand(params));
-            console.log("LOG=after publish", JSON.stringify(response));
+            // const response = await snsClient.send(new sns.PublishCommand(params));
+            // console.log("LOG=after publish", JSON.stringify(response));
 
             return {
                 statusCode: "Successful",
