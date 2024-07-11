@@ -1,4 +1,4 @@
-import { SQSEvent, Context } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResponse, Context } from "aws-lambda";
 import { Order } from "./Usecase";
 import { OrderAdapter } from "./Adapter";
 import { OrderRepository } from "./OrderRepository";
@@ -16,7 +16,7 @@ async function initialize(): Promise<OrderAdapter> {
 
 let adapter: OrderAdapter;
 
-export async function handler(event: SQSEvent, context: Context): Promise<void> {
+export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResponse> {
     console.log("LOG=INITIALIZE LAMBDA0");
 
     if (!adapter) {
