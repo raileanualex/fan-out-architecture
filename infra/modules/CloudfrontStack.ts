@@ -18,7 +18,7 @@ export type ServiceStackProps = cdk.StackProps & {
 
 export class CloudfrontStack extends cdk.Stack {
     constructor(scope: constructs.Construct, id: string, props: ServiceStackProps) {
-        super(scope, id, props);
+        super(scope, `${id}-cloudfront-stack`, props);
 
         // Look up or create Route 53 hosted zone
         const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
