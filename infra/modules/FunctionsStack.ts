@@ -21,10 +21,10 @@ export class FunctionsStack extends cdk.Stack {
     orderLambda: lambda.Function;
     
     constructor(scope: constructs.Construct, id: string, props: ServiceStackProps) {
-        super(scope, `${id}-functions-stack`, props);
+        super(scope, `${props.label.id}-functions-stack`, props);
 
         // Create Order Lambda function
-        this.orderLambda = new nodeLambda.NodejsFunction(this, `${id}-order-lambda`, {
+        this.orderLambda = new nodeLambda.NodejsFunction(this, `${props.label.id}-order-lambda`, {
             entry: './service/order/Handler.ts',
             runtime: lambda.Runtime.NODEJS_20_X,
             environment: {
@@ -34,21 +34,21 @@ export class FunctionsStack extends cdk.Stack {
         props.topic.grantPublish(this.orderLambda);
 
         // Create Payment Lambda function
-        const paymentLambda = new nodeLambda.NodejsFunction(this, `${id}-payment-lambda`, {
+        const paymentLambda = new nodeLambda.NodejsFunction(this, `${props.label.id}-payment-lambda`, {
             entry: './service/payment/Handler.ts',
             runtime: lambda.Runtime.NODEJS_20_X,
         });
         paymentLambda.addEventSource(new lambdaEventSources.SqsEventSource(props.paymentQueue));
 
         // Create Inventory Lambda function
-        const inventoryLambda = new nodeLambda.NodejsFunction(this, `${id}-inventory-lambda`, {
+        const inventoryLambda = new nodeLambda.NodejsFunction(this, `${props.label.id}-inventory-lambda`, {
             entry: './service/inventory/Handler.ts',
             runtime: lambda.Runtime.NODEJS_20_X,
         });
         inventoryLambda.addEventSource(new lambdaEventSources.SqsEventSource(props.inventoryQueue));
 
         // Create Shipment Lambda function
-        const shipmentLambda = new nodeLambda.NodejsFunction(this, `${id}-shipment-lambda`, {
+        const shipmentLambda = new nodeLambda.NodejsFunction(this, `${props.label.id}-shipment-lambda`, {
             entry: './service/shipment/Handler.ts',
             runtime: lambda.Runtime.NODEJS_20_X,
         });

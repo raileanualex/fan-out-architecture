@@ -18,7 +18,7 @@ export type ServiceStackProps = cdk.StackProps & {
 
 export class CloudfrontStack extends cdk.Stack {
     constructor(scope: constructs.Construct, id: string, props: ServiceStackProps) {
-        super(scope, `${id}-cloudfront-stack`, props);
+        super(scope, `${props.label.id}-cloudfront-stack`, props);
 
         // Look up or create Route 53 hosted zone
         const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
@@ -27,13 +27,13 @@ export class CloudfrontStack extends cdk.Stack {
 
         const certificate = certificatemanager.Certificate.fromCertificateArn(this, "certificate-arn", "arn:aws:acm:us-east-1:339712871873:certificate/99c73a0e-43a0-4416-9d96-db36e66e29db");
 
-        const originRequestPolicy = new cloudfront.OriginRequestPolicy(this, `${id}-orp`, {
+        const originRequestPolicy = new cloudfront.OriginRequestPolicy(this, `${props.label.id}-orp`, {
             headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList("x-api-key"),
             queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
         });
 
         // Create CloudFront distribution with SSL/TLS certificate
-        const distribution = new cloudfront.Distribution(this, `${id}-distribution`, {
+        const distribution = new cloudfront.Distribution(this, `${props.label.id}-distribution`, {
             defaultBehavior: {
                 origin: new origins.HttpOrigin(`${props.api.restApiId}.execute-api.${this.region}.amazonaws.com`, {
                     originPath: `/${props.api.deploymentStage.stageName}`,
@@ -48,7 +48,7 @@ export class CloudfrontStack extends cdk.Stack {
         });
         
         // Create DNS record for the CloudFront distribution
-        new route53.ARecord(this, `${id}-CloudFrontAliasRecord`, {
+        new route53.ARecord(this, `${props.label.id}-CloudFrontAliasRecord`, {
             zone: hostedZone,
             region: props.env?.region,
             target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
@@ -56,13 +56,13 @@ export class CloudfrontStack extends cdk.Stack {
         });
 
         // Output the CloudFront URL
-        new cdk.CfnOutput(this, `${id}-CloudFrontURL`, {
+        new cdk.CfnOutput(this, `${props.label.id}-CloudFrontURL`, {
             value: `https://${distribution.domainName}`,
             description: 'The URL of the CloudFront distribution',
         });
 
         // Output the DNS URL
-        new cdk.CfnOutput(this, `${id}-DNSURL`, {
+        new cdk.CfnOutput(this, `${props.label.id}-DNSURL`, {
             value: `https://api.${props.domainName}`,
             description: 'The DNS URL for the CloudFront distribution',
         });
