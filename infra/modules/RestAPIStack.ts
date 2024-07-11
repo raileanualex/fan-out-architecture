@@ -15,7 +15,7 @@ export class RestAPIStack extends cdk.Stack {
     api: apigateway.LambdaRestApi;
 
     constructor(scope: constructs.Construct, id: string, props: ServiceStackProps) {
-        super(scope, `${id}-rest-api-stack`, props);
+        super(scope, `${props.label.id}-rest-api-stack`, props);
 
         // Create API Gateway
         this.api = new apigateway.LambdaRestApi(this, 'APIGateway', {
